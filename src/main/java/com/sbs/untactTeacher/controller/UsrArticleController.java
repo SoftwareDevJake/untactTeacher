@@ -104,6 +104,7 @@ public class UsrArticleController {
 			return rs;
 		}
 		
+		selectedArticle.setUpdateDate(Util.today());
 		selectedArticle.setTitle(title);
 		selectedArticle.setBody(body);
 		
