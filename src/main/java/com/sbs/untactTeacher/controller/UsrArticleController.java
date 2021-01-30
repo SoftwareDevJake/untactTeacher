@@ -40,7 +40,15 @@ public class UsrArticleController {
 	@RequestMapping("/usr/article/list")
 	@ResponseBody
 	public List<Article> showList() {
-		return articles;
+		return articles;			
+	}
+	
+	@RequestMapping("/usr/article/list2")
+	@ResponseBody
+	public List<Article> showList(String searchKeyword) {
+		
+		ArrayList<Article> searchedArticles = searchArticles(searchKeyword);
+		return searchedArticles;
 	}
 	
 	@RequestMapping("/usr/article/doAdd")
@@ -74,8 +82,6 @@ public class UsrArticleController {
 		{
 			rs.put("msg", "헤당 게시물이 없습니다.");
 		}
-		
-		
 		
 		return rs;
 	}
@@ -112,7 +118,6 @@ public class UsrArticleController {
 		rs.put("msg", String.format("%d번 게시물이 수정 되었습니다..", id));
 		
 		return rs;
-		
 	}
 	
 	
@@ -127,6 +132,22 @@ public class UsrArticleController {
 			}
 		}
 		return false;
+	}
+	
+	private ArrayList<Article> searchArticles(String searchKeyword)
+	{
+		ArrayList<Article> searchedArticles = new ArrayList<>();
+		
+		for(Article article : articles)
+		{
+			if(article.getTitle().contains(searchKeyword))
+			{
+				searchedArticles.add(article);
+			}
+		}
+		
+		return searchedArticles;
+		
 	}
 	
 }
