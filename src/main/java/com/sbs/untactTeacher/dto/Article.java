@@ -5,17 +5,27 @@ public class Article {
 	private String regDate;
 	private String title;
 	private String body;
+	private String updateDate;
 
-	public Article(int id, String regDate, String title, String body) {
+	public String getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(String updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	public Article(int id, String regDate, String title, String body, String updateDate) {
 		this.id = id;
 		this.regDate = regDate;
 		this.title = title;
 		this.body = body;
+		this.updateDate = updateDate;
 	}
 
 	@Override
 	public String toString() {
-		return "Article [id=" + id + ", regDate=" + regDate + ", title=" + title + ", body=" + body + "]";
+		return "Article [id=" + id + ", regDate=" + regDate + ", title=" + title + ", body=" + body + "updateDate = " + updateDate + "]";
 	}
 
 	public int getId() {

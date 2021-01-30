@@ -9,12 +9,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sbs.untactTeacher.Util;
 import com.sbs.untactTeacher.dto.Article;
 
 @Controller
 public class UsrArticleController {
+	
 	private int articlesLastId;
 	private List<Article> articles;
+	private Util ct = new Util();
+	private String currentDate = ct.today();
+	private String updateDate = null;
 	
 	public UsrArticleController() {
 		articles = new ArrayList<>();
@@ -22,8 +27,8 @@ public class UsrArticleController {
 		articlesLastId =  0;
 		
 		// 게시물 2개 생성
-		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "제목1", "내용1"));
-		articles.add(new Article(++articlesLastId, "2020-12-12 12:12:12", "제목2", "내용2"));
+		articles.add(new Article(++articlesLastId, currentDate, "제목1", "내용1", updateDate));
+		articles.add(new Article(++articlesLastId, currentDate, "제목2", "내용2", updateDate));
 	}
 	
 	@RequestMapping("/usr/article/detail")
@@ -40,9 +45,10 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doAdd")
 	@ResponseBody
-	public Map<String, Object> doAdd(String regDate, String title, String body)
+	public Map<String, Object> doAdd(String title, String body)
 	{
-		articles.add(new Article(++articlesLastId, regDate, title, body));
+		
+		articles.add(new Article(++articlesLastId, currentDate, title, body, updateDate));
 		
 		Map<String, Object> rs = new HashMap<>();
 		rs.put("resultCode", "S-1");
