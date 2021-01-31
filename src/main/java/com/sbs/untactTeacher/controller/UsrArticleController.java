@@ -39,16 +39,16 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/list")
 	@ResponseBody
-	public List<Article> showList() {
-		return articles;			
-	}
-	
-	@RequestMapping("/usr/article/list2")
-	@ResponseBody
-	public List<Article> showList(String searchKeyword) {
-		
-		ArrayList<Article> searchedArticles = searchArticles(searchKeyword);
-		return searchedArticles;
+	public List<Article> showList(String searchKeyword, String searchKeywordType) {
+		if(searchKeyword == null)
+			{
+				return articles;			
+			}
+		else
+		{
+			ArrayList<Article> searchedArticles = searchArticles(searchKeyword, searchKeywordType);
+			return searchedArticles;
+		}
 	}
 	
 	@RequestMapping("/usr/article/doAdd")
@@ -134,15 +134,32 @@ public class UsrArticleController {
 		return false;
 	}
 	
-	private ArrayList<Article> searchArticles(String searchKeyword)
+	private ArrayList<Article> searchArticles(String searchKeyword, String searchKeywordType)
 	{
 		ArrayList<Article> searchedArticles = new ArrayList<>();
 		
 		for(Article article : articles)
 		{
-			if(article.getTitle().contains(searchKeyword))
+			if(searchKeywordType.equals("title"))
 			{
-				searchedArticles.add(article);
+				if(article.getTitle().contains(searchKeyword))
+				{
+					searchedArticles.add(article);
+				}
+			}
+			else if(searchKeywordType.equals("body"))
+			{
+				if(article.getBody().contains(searchKeyword))
+				{
+					searchedArticles.add(article);
+				}
+			}
+			else if(searchKeywordType.equals("titleAndBody"))
+			{
+				if(article.getTitle().contains(searchKeyword) || article.getTitle().contains(searchKeyword))
+				{
+					searchedArticles.add(article);
+				}
 			}
 		}
 		
