@@ -68,7 +68,7 @@ public class UsrArticleController {
 	
 	@RequestMapping("/usr/article/doDelete")
 	@ResponseBody
-	public Map<String, Object> doDelete(int aid)
+	public Map<String, Object> doDelete(Integer aid)
 	{
 		boolean deleteArticleRs = deleteArticle(aid);
 		
@@ -88,7 +88,7 @@ public class UsrArticleController {
 
 	@RequestMapping("/usr/article/doModify")
 	@ResponseBody
-	public Map<String, Object> doModify(int id, String title, String body)
+	public Map<String, Object> doModify(Integer id, String title, String body)
 	{
 		Article selectedArticle = null;
 		
@@ -121,7 +121,7 @@ public class UsrArticleController {
 	}
 	
 	
-	private boolean deleteArticle(int aid) {
+	private boolean deleteArticle(Integer aid) {
 		
 		for(Article article : articles)
 		{
